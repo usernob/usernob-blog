@@ -11,7 +11,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+                sans: ["Geist", "Poppins", ...defaultTheme.fontFamily.sans],
                 mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
             },
             animation: {
@@ -43,15 +43,15 @@ export default {
                 foreground: "#EAEAEB",
                 background2: "#1e222a",
                 foreground2: "#abb2bf",
-                placeholder: "#42464e"
+                placeholder: "#42464e",
             },
             light: {
                 background: "#EAEAEB",
                 foreground: "#252931",
                 background2: "#fafafa",
                 foreground2: "#383a42",
-                placeholder: "#dadadb"
-            }
-        })
+                placeholder: "#dadadb",
+            },
+        }),
     ],
 };

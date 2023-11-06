@@ -19,12 +19,12 @@ new class () extends Component {
     public function with()
     {
         return [
-            'posts' => Post::search($this->search)->simplePaginate(10),
+            'posts' => Post::where("title", "like", "%{$this->search}%")->simplePaginate(10),
         ];
     }
 }; ?>
 
-<div>
+<div class="rounded-md shadow-lg bg-background2 p-4">
     <h2>Posts</h2>
     <div class="flex gap-4 w-full mt-4">
         <div
@@ -40,7 +40,7 @@ new class () extends Component {
             </button>
         </div>
         <button
-            class="rounded-md py-2 px-4 flex items-center bg-ancent hover:bg-ancent/80 focus:ring-2 focus:ring-foreground">
+            class="rounded-md py-2 px-4 flex items-center bg-ancent hover:bg-ancent/80 focus:ring-2 focus:ring-foreground text-background2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"

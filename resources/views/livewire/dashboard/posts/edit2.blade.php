@@ -3,7 +3,6 @@
 use App\Models\Post;
 use App\Models\Tag;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
@@ -13,25 +12,16 @@ new class () extends Component {
 
     #[Layout('components.layouts.admin')]
     #[Title('Post Edit')]
+
     public $id = '';
 
     public $searchTag = '';
-    private $posts;
 
-    #[Rule('required|min:5')]
+
     public $title = '';
-
-    #[Rule('required')]
     public $description = '';
-
-    #[Rule('required')]
     public $tag = '';
-
     public $thumbnail;
-
-    #[Rule('required')]
-    public $content = '';
-
     public function placeholder()
     {
         return <<<'HTML'
@@ -58,101 +48,53 @@ new class () extends Component {
         }
         return Tag::where('name', 'like', '%' . $this->searchTag . '%')->get();
     }
-
-    private Post $post;
-
-    public function boot()
-    {
-        $this->post = Post::find($this->id);
-    }
-
-    public function mount()
-    {
-        $this->title = $this->post->title;
-        $this->description = $this->post->description;
-        $this->tag = json_encode(
-            $this->post
-                ->tag_relation()
-                ->with('tag')
-                ->get()
-                ->pluck('tag.name', "tag.id")
-                ->toArray(),
-        );
-        $this->content = $this->post->content;
-    }
-
-    public function update()
-    {
-        $this->validate();
-        $data = [
-            'title' => $this->title,
-            'description' => $this->description,
-            'content' => $this->content,
-        ];
-
-        $tags = json_decode($this->tag, true);
-
-        $this->post->tag_relation()->sync($tags);
-
-        $this->post->update($data);
-    }
-
     public function with()
     {
         return [
-            'post' => $this->post,
+            'post' => Post::find($this->id),
             'tags' => $this->tags(),
         ];
     }
 }; ?>
 
-<form class="h-full relative" wire:submit="update">
-    <button type="submit" class="fixed right-10 bottom-10 rounded-full p-2 z-10 bg-ancent text-background2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="w-10 h-10">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-    </button>
+<article class="h-full relative">
+
     <section class="w-full flex flex-col gap-4 rounded-md shadow-lg bg-background2 p-4" x-data="metadata">
         <div>
             <label for="title">
                 <h4 class="mb-2">Title</h4>
             </label>
-            <input class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent bg-background2"
-                type="text" name="title" id="title" wire:model="title">
-            @error('title')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
+            <input class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent" type="text" name="title"
+                id="title" wire:model="title">
         </div>
         <div>
             <label for="description">
                 <h4 class="mb-2">Description</h4>
             </label>
-            <textarea class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent bg-background2" name="description"
-                id="description" rows="6" wire:model="description"></textarea>
+            <textarea class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent" name="description" id="description"
+                rows="6" wire:model="description"></textarea>
         </div>
         <input type="text" x-ref="inputTag" name="tag" wire:model="tag" hidden>
-        <div class="relative" x-init="fillTags">
+        <div class="relative">
             <label for="tag">
                 <h4 class="mb-2">Tags</h4>
             </label>
-            <input class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent bg-background2"
-                type="search" x-ref="taginputmodel" id="tag" wire:model.live.debounce.500ms="searchTag">
+            <input class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent" type="search"
+                x-ref="taginputmodel" id="tag" wire:model.live.debounce.500ms="searchTag">
             @if (count($tags) > 0)
                 <div
                     class="absolute left-0 top-20 flex flex-col bg-background2 items-start rounded-md shadow-md w-full">
                     @foreach ($tags as $tag)
                         <button class="w-full text-xl hover:bg-opacity-50 text-start hover:bg-background px-[0.75rem]"
-                            @click="addTag" data-id="{{ $tag->id }}">{{ $tag->name }}</button>
+                            @click="addTag">{{ $tag->name }}</button>
                     @endforeach
                 </div>
             @endif
             <div class="w-full flex flex-wrap gap-2 mt-4">
-                <template x-for="tag, index in tags" :key="index">
+                <template x-for="(tag, index) in tags" :key="index">
                     <div class="bg-ancent rounded-full px-4 py-2 flex items-center gap-2 text-background2">
                         <p x-text="tag"></p>
-                        <button @click="deleteTag" x-bind:data-tag="index">
+                        <button @click="deleteTag" x-bind:data-tag="tag">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -175,8 +117,7 @@ new class () extends Component {
                 id="dropcontainer" x-bind="handleDrag">
                 <span class="text-xl">Drop files here</span>
                 or
-                <input type="file" name="thumbnail" id="thumbnail" x-ref="thumbnail" wire:model="thumbnail"
-                    accept="image/*">
+                <input type="file" name="thumbnail" id="thumbnail" x-ref="thumbnail" wire:model="thumbnail" accept="image/*">
                 16:9 image only
                 <img x-show="previewImg" x-ref="previewImg" src="{{ asset($post->thumbnail) }}"
                     data-src="{{ asset($post->thumbnail) }}"
@@ -196,8 +137,8 @@ new class () extends Component {
         <div class="rounded-md shadow-lg bg-background2 p-4">
 
             <div class="w-full" x-show="!preview">
-                <textarea class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent bg-background2" name="content"
-                    id="content" rows="50" x-ref="content" data-src="{{ asset($post->content) }}" wire:model="content"></textarea>
+                <textarea class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent" name="content" id="content"
+                    rows="50" x-ref="content" data-src="{{ asset($post->content) }}"></textarea>
             </div>
 
             <div x-show="preview">
@@ -244,24 +185,19 @@ new class () extends Component {
                 },
                 tags: [],
 
-                fillTags() {
-                    this.tags = JSON.parse(this.$refs.inputTag.value);
-                    console.log(JSON.parse(this.$refs.inputTag.value))
-                },
                 updateInput() {
-                    this.$refs.inputTag.value = JSON.stringify(this.tags);
+                    this.$refs.inputTag.value = this.tags.join(",");
                     this.$refs.inputTag.dispatchEvent(new Event("input"));
                 },
                 addTag(e) {
                     this.$refs.taginputmodel.value = null;
                     this.$refs.taginputmodel.dispatchEvent(new Event("input"));
-                    if (this.tags.hasOwnProperty(e.target.dataset.id)) return;
-                    this.tags[e.target.dataset.id] = e.target.innerText
+                    if (this.tags.includes(e.target.innerText)) return;
+                    this.tags.push(e.target.innerText);
                     this.updateInput();
                 },
                 deleteTag(e) {
-                    delete this.tags[e.target.parentElement.dataset.tag]
-                    console.log(this.tags, e.target.parentElement.dataset.tag)
+                    this.tags = this.tags.filter((tag) => tag !== e.target.parentElement.dataset.tag);
                     this.updateInput();
                 }
             }))
@@ -286,4 +222,4 @@ new class () extends Component {
             }))
         })
     </script>
-</form>
+</article>

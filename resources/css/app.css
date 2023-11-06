@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('./font.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     h1 {
-        @apply text-4xl sm:text-5xl lg:text-6xl font-bold
+        @apply text-4xl sm:text-6xl lg:text-8xl font-bold lg:font-medium
     }
     h2 {
         @apply text-2xl sm:text-3xl lg:text-4xl font-bold

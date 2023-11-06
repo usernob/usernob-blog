@@ -16,7 +16,8 @@ return new class () extends Migration {
             $table->string('thumbnail');
             $table->foreignId('user_id')->constrained();
             $table->string('content');
-            $table->string("description");
+            $table->string('description');
+            $table->integer('view_count')->default(0);
             $table->timestamps();
         });
     }

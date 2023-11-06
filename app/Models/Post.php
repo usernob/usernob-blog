@@ -17,6 +17,7 @@ class Post extends Model
         'thumbnail',
         'content',
         'description',
+        'view_count',
     ];
 
     public function user(): BelongsTo {
