@@ -11,7 +11,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Geist", "Poppins", ...defaultTheme.fontFamily.sans],
+                sans: ["Geist", ...defaultTheme.fontFamily.sans],
                 mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
             },
             animation: {
@@ -25,8 +25,17 @@ export default {
                 },
             },
             colors: {
-                ancent_alt: "#E65050",
-                ancent: "#d84a3d",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+                background2: "var(--background2)",
+                foreground2: "var(--foreground2)",
+                secondary: "#E65050",
+                ancent: {
+                    DEFAULT: "rgb(var(--ancent) / <alpha-value>)",
+                    hover: "rgb(var(--ancent) / 0.75)",
+                    disable: "rgb(var(--ancent) / 0.5)",
+                },
+                placeholder: "var(--placeholder)",
             },
         },
         container: {
@@ -37,21 +46,5 @@ export default {
     plugins: [
         require("@tailwindcss/typography"),
         require("@tailwindcss/forms"),
-        createThemes({
-            dark: {
-                background: "#252931",
-                foreground: "#EAEAEB",
-                background2: "#1e222a",
-                foreground2: "#abb2bf",
-                placeholder: "#42464e",
-            },
-            light: {
-                background: "#EAEAEB",
-                foreground: "#252931",
-                background2: "#fafafa",
-                foreground2: "#383a42",
-                placeholder: "#dadadb",
-            },
-        }),
     ],
 };

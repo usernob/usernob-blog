@@ -1,3 +1,16 @@
+<?php
+
+use App\Models\Tag;
+use Livewire\Volt\Component;
+
+new class () extends Component {
+    public function with() {
+        return [
+            "tags" => Tag::all(),
+        ];
+    }
+}; ?>
+
 <header class="w-full shadow-md sticky top-0 bg-background2 z-50">
     <div class="container" x-data="{ open: false }">
         <div class="flex justify-between items-center py-4">
@@ -7,7 +20,17 @@
             </a>
             <div class="flex items-center gap-4">
                 <nav class="hidden md:flex items-center gap-10">
-                    {{ $slot }}
+
+                    <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')" wire:navigate>
+                        {{ __('Home') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
+                        {{ __('Tutorial') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
+                        {{ __('About') }}
+                    </x-nav-link>
+
                 </nav>
                 <div class="flex items-center gap-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -46,13 +69,23 @@
             </div>
         </div>
         <nav x-show="open" x-cloak x-collapse class="flex flex-col gap-2 pb-4 md:hidden">
-            {{ $slot }}
+            <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')" wire:navigate>
+                {{ __('Home') }}
+            </x-nav-link>
+            <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
+                {{ __('Tutorial') }}
+            </x-nav-link>
+            <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
+                {{ __('About') }}
+            </x-nav-link>
         </nav>
     </div>
     <template id="tags">
         <a href="{{ route('homepage') }}">usernob_blog</a>
-        @foreach (App\Models\Tag::all() as $tag)
+        @foreach ($tags as $tag)
             <a href="{{ $tag->name }}">{{ $tag->name }}</a>
         @endforeach
     </template>
+
+    @vite('resources/js/lib/navbar.js')
 </header>

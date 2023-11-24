@@ -5,7 +5,7 @@
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <span
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent cursor-default leading-5 rounded-md select-none">
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent-disable cursor-default leading-5 rounded-md select-none">
                         {!! __('pagination.previous') !!}
                     </span>
                 @else
@@ -15,14 +15,14 @@
                             wire:key="cursor-{{ $paginator->getCursorName() }}-{{ $paginator->previousCursor()->encode() }}"
                             wire:click="setPage('{{ $paginator->previousCursor()->encode() }}','{{ $paginator->getCursorName() }}')"
                             wire:loading.attr="disabled"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent_alt active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent/75 active:bg-ancent-hover hover:bg-ancent-hover transition ease-in-out duration-150">
                             {!! __('pagination.previous') !!}
                         </button>
                     @else
                         <button type="button" wire:click="previousPage('{{ $paginator->getPageName() }}')"
                             wire:loading.attr="disabled"
                             dusk="previousPage{{ $paginator->getPageName() == 'page' ? '' : '.' . $paginator->getPageName() }}"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent_alt active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent/75 active:bg-ancent-hover hover:bg-ancent-hover transition ease-in-out duration-150">
                             {!! __('pagination.previous') !!}
                         </button>
                     @endif
@@ -38,20 +38,20 @@
                             wire:key="cursor-{{ $paginator->getCursorName() }}-{{ $paginator->nextCursor()->encode() }}"
                             wire:click="setPage('{{ $paginator->nextCursor()->encode() }}','{{ $paginator->getCursorName() }}')"
                             wire:loading.attr="disabled"
-                            class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent_alt active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent/75 active:bg-ancent-hover hover:bg-ancent-hover transition ease-in-out duration-150">
                             {!! __('pagination.next') !!}
                         </button>
                     @else
                         <button type="button" wire:click="nextPage('{{ $paginator->getPageName() }}')"
                             wire:loading.attr="disabled"
                             dusk="nextPage{{ $paginator->getPageName() == 'page' ? '' : '.' . $paginator->getPageName() }}"
-                            class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent_alt active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent leading-5 rounded-md hover:text-white focus:outline-none focus:bg-ancent/75 active:bg-ancent-hover hover:bg-ancent-hover transition ease-in-out duration-150">
                             {!! __('pagination.next') !!}
                         </button>
                     @endif
                 @else
                     <span
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent cursor-default leading-5 rounded-md select-none">
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-ancent-disable cursor-default leading-5 rounded-md select-none">
                         {!! __('pagination.next') !!}
                     </span>
                 @endif

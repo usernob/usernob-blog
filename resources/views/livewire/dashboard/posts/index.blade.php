@@ -10,7 +10,6 @@ new class () extends Component {
     use WithPagination;
     #[Layout('components.layouts.admin')]
     #[Title('Posts')]
-
     public $search = '';
     # TODO add filter based on date
     public $search_start_date = '';
@@ -19,17 +18,17 @@ new class () extends Component {
     public function with()
     {
         return [
-            'posts' => Post::where("title", "like", "%{$this->search}%")->simplePaginate(10),
+            'posts' => Post::where('title', 'like', "%{$this->search}%")->simplePaginate(10),
         ];
     }
 }; ?>
 
-<div class="rounded-md shadow-lg bg-background2 p-4">
+<div class="rounded-md shadow-lg bg-background2 p-4 border border-slate-700">
     <h2>Posts</h2>
     <div class="flex gap-4 w-full mt-4">
         <div
-            class="flex items-center rounded-md border-2 border-foreground flex-1 hover:border-foreground focus:border-foreground overflow-hidden">
-            <input type="text" class="w-full px-4 bg-background border-0 focus:ring-0 focus:outline-none"
+            class="flex items-center rounded-md border border-slate-700 flex-1 hover:border-foreground focus:border-foreground overflow-hidden">
+            <input type="text" class="w-full px-4 bg-background2 border-0 focus:ring-0 focus:outline-none"
                 placeholder="Cari post" wire:model.live.debounce.500ms="search" />
             <button class="m-2 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -39,7 +38,7 @@ new class () extends Component {
                 </svg>
             </button>
         </div>
-        <button
+        <a href="{{ route('dashboard.posts.create') }}"
             class="rounded-md py-2 px-4 flex items-center bg-ancent hover:bg-ancent/80 focus:ring-2 focus:ring-foreground text-background2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
@@ -47,8 +46,15 @@ new class () extends Component {
                     d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             Tambah
-        </button>
+        </a>
     </div>
+
+    @if (session('status:success'))
+        <div class="w-full bg-green-600 rounded-md p-4 mt-10">
+            <span>{{ session('status:success') }}</span>
+        </div>
+    @endif
+
     <div class="w-full flex flex-col gap-4 mt-10">
         @foreach ($posts as $post)
             <article class="flex flex-col md:flex-row w-full items-center gap-4 group">

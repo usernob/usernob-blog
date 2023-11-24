@@ -1,10 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&display=swap');
 @import url('./font.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+    :root {
+        --background: #EAEAEB;
+        --foreground: #252931;
+        --background2: #fafafa;
+        --foreground2: #383a42;
+        --placeholder: #dadadb;
+        --ancent: 216 74 61;
+    }
+
+    .dark {
+        --background: #252931;
+        --foreground: #EAEAEB;
+        --background2: #1e222a;
+        --foreground2: #abb2bf;
+        --placeholder:#42464e;
+        --ancent: 216 74 61;
+    }
+
+}
+
+@layer base {
+    * {
+        @apply transition-colors duration-300 ease-in-out
+    }
     h1 {
         @apply text-4xl sm:text-6xl lg:text-8xl font-bold lg:font-medium
     }
@@ -25,11 +49,11 @@
     }
 
     a {
-        @apply text-lg cursor-pointer font-semibold
+        @apply cursor-pointer
     }
 
     p {
-        @apply text-lg font-normal leading-6
+        @apply leading-6
     }
 }
 

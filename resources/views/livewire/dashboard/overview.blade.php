@@ -15,4 +15,10 @@ new class () extends Component {
 
 <div>
     <h2>Overview</h2>
+
+    <div class="w-full flex gap-8 justify-center items-center">
+
+
+
+    </div>
 </div>

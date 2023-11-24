@@ -1,20 +1,8 @@
 <x-layouts.app>
     <x-slot:title>{{ $title ?? 'Home Page' }}</x-slot:title>
     <x-slot:head>{{ $head ?? '' }}</x-slot:head>
-    <x-guest-navbar>
-        <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-            {{ __('Home') }}
-        </x-nav-link>
-        <x-nav-link :href="route('homepage')" :active="false">
-            {{ __('Tutorial') }}
-        </x-nav-link>
-        <x-nav-link :href="route('homepage')" :active="false">
-            {{ __('About') }}
-        </x-nav-link>
-    </x-guest-navbar>
+    <livewire:component.homepage.guest-navbar />
     {{ $slot }}
-    <script src="{{ asset('js/navbar.js') }}"></script>
-
     <footer class="relative bg-background2">
         <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
             <div class="flex justify-center text-teal-600 dark:text-teal-300">

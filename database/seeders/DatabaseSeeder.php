@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\Tag;
-use App\Models\TagRelation;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Tag::factory(15)->create();
+
         User::factory()
             ->create()
             ->each(function ($user) {
@@ -27,15 +28,8 @@ class DatabaseSeeder extends Seeder
                 );
             });
 
-        Tag::factory(5)->create();
-
         foreach (Post::all() as $post) {
-            foreach (Tag::all() as $tag) {
-                TagRelation::create([
-                    'post_id' => $post->id,
-                    'tag_id' => $tag->id,
-                ]);
-            }
+            $post->tags()->attach(Tag::all()->random(rand(1, 8)));
         }
         // \App\Models\User::factory(10)->create();
 

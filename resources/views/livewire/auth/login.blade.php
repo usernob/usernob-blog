@@ -77,7 +77,7 @@ new class () extends Component {
                 <p class="text-red-500 text-sm">{{ $errors->first('password') }}</p>
             @enderror
         </div>
-        <button type="submit" class="py-2 bg-ancent hover:bg-ancent_alt text-white w-full rounded-sm my-10 text-lg">
+        <button type="submit" class="py-2 bg-ancent hover:bg-ancent-hover text-white w-full rounded-sm my-10 text-lg">
             Log In
         </button>
     </form>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 
 class Post extends Model
@@ -24,8 +24,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tag_relation(): HasMany {
-        return $this->hasMany(TagRelation::class, "post_id");
+    public function tags(): BelongsToMany {
+        return $this->belongsToMany(Tag::class);
     }
 
     public static function search($query, $start_date = null, $end_date = null) {

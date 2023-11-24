@@ -19,7 +19,6 @@
         "marked-xhtml": "^1.0.6",
         "postcss": "^8.4.29",
         "tailwindcss": "^3.3.3",
-        "tw-colors": "^3.0.3",
         "vite": "^4.0.0"
     }
 }

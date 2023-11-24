@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 
 <head>
     <title>{{ $title ?? '' }} | {{ config('app.name', 'usernob_blog') }}</title>
@@ -7,11 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
         if (localStorage.getItem('darkmode') === 'true') {
-            document.documentElement.classList.remove("light")
             document.documentElement.classList.add("dark")
         } else {
             document.documentElement.classList.remove("dark")
-            document.documentElement.classList.add("light")
         }
     </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
