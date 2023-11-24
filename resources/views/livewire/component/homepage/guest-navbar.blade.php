@@ -4,9 +4,10 @@ use App\Models\Tag;
 use Livewire\Volt\Component;
 
 new class () extends Component {
-    public function with() {
+    public function with()
+    {
         return [
-            "tags" => Tag::all(),
+            'tags' => Tag::all(),
         ];
     }
 }; ?>
@@ -21,23 +22,25 @@ new class () extends Component {
             <div class="flex items-center gap-4">
                 <nav class="hidden md:flex items-center gap-10">
 
-                    <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')" wire:navigate>
+                    <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
-                        {{ __('Tutorial') }}
+                    <x-nav-link :href="route('tag')" :active="request()->routeIs('tag')">
+                        {{ __('Categories') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
+                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                         {{ __('About') }}
                     </x-nav-link>
 
                 </nav>
                 <div class="flex items-center gap-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="w-6 h-6 hover:text-ancent">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
+                    <a href="#" class="hover:text-ancent">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </a>
                     <button type="button" @click="$store.darkmode.toggle()" class="hover:text-ancent relative w-6 h-6">
                         <svg x-show="!$store.darkmode.on" x-transition.opacity class="absolute w-6 h-6 inset-0"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -69,21 +72,23 @@ new class () extends Component {
             </div>
         </div>
         <nav x-show="open" x-cloak x-collapse class="flex flex-col gap-2 pb-4 md:hidden">
-            <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')" wire:navigate>
+
+            <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
                 {{ __('Home') }}
             </x-nav-link>
-            <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
-                {{ __('Tutorial') }}
+            <x-nav-link :href="route('tag')" :active="request()->routeIs('tag')">
+                {{ __('Categories') }}
             </x-nav-link>
-            <x-nav-link :href="route('homepage')" :active="false" wire:navigate>
+            <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                 {{ __('About') }}
             </x-nav-link>
+
         </nav>
     </div>
     <template id="tags">
         <a href="{{ route('homepage') }}">usernob_blog</a>
         @foreach ($tags as $tag)
-            <a href="{{ $tag->name }}">{{ $tag->name }}</a>
+            <a href="{{ route('tag.post', $tag->name) }}">{{ $tag->name }}</a>
         @endforeach
     </template>
 

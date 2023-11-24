@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
         return view('page.homepage.index');
     }
@@ -21,9 +21,25 @@ class HomeController extends Controller
         return view('page.post.show', compact('post'));
     }
 
-    public function tag(Request $request, string $tag): View
+    public function getPostByTag(Request $request, string $tag): View
     {
-        $posts = Tag::where('name', '=', $tag)->first()->posts;
-        return view('tag.post', compact('post'));
+        $posts = Tag::where('name', '=', $tag)->first()->posts()->simplePaginate(6);
+        return view('page.tag.post', ['posts' => $posts, 'tagname' => $tag]);
+    }
+
+    public function search(): View
+    {
+        return view('page.search.index');
+    }
+
+    public function tag(): View
+    {
+        $tags = Tag::orderBy("name")->get();
+        return view('page.tag.index', compact('tags'));
+    }
+
+    public function about() : View
+    {
+        return view('page.about.index');
     }
 }

@@ -17,6 +17,13 @@ use Livewire\Volt\Volt;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
+Route::get("/search", [HomeController::class, 'search'])->name('search');
+
+Route::get("/about", [HomeController::class, 'about'])->name('about');
+
+Route::get("/tag", [HomeController::class, 'tag'])->name('tag');
+
+
 Volt::route('/login', "auth.login")->name("login");
 
 Route::middleware('auth')->group(function () {
@@ -27,5 +34,5 @@ Route::middleware('auth')->group(function () {
     Volt::route('/dashboard/profile', "dashboard.overview")->name('dashboard.profile');
 });
 
-Route::get('/tag/{tag}', [HomeController::class, 'tag'])->name('tag.post');
+Route::get('/tag/{tag}', [HomeController::class, 'getPostByTag'])->name('tag.post');
 Route::get('/post/{by}/{param}', [HomeController::class, 'showPost'])->name('post.show');

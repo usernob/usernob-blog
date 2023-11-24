@@ -1,6 +1,6 @@
 <x-layouts.guest>
     <x-slot:title>{{ $post->title }}</x-slot:title>
-    <article class="h-full">
+    <article class="min-h-full">
         <section class="bg-background w-full pt-10 lg:pt-20 pb-10 relative">
             <div class="bg-background2 w-full h-1/3 absolute bottom-0 inset-x-0"></div>
             <div class="prose md:prose-lg dark:prose-invert mx-auto w-full max-w-[80ch] px-6 relative z-10">
@@ -10,7 +10,7 @@
                     class="aspect-video rounded-lg shadow-xl w-full object-cover" loading="lazy">
             </div>
         </section>
-        <section class="bg-background2">
+        <section class="bg-background2 pb-24">
             <div class="prose md:prose-lg dark:prose-invert mx-auto w-full max-w-[80ch] px-6 prose-img:mx-auto prose-img:max-h[30vh] md:prose-img:max-h-[50vh] prose-img:rounded-xl prose-img:shadow-lg"
                 x-data="content">
                 <hr>

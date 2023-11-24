@@ -17,9 +17,9 @@
             </div>
         </section>
     </header>
-    <section class="container my-4">
-        <h3 class="text-ancent" id="latest-post">Post Terbaru</h3>
-        <p class="mb-4">Mari cek post terbaru dari blog ini.</p>
+    <section class="container mt-4">
+        <h2 class="text-ancent" id="latest-post">Post Terbaru</h2>
+        <h4 class="mb-4 font-medium">Mari cek post terbaru dari blog ini.</h4>
         <livewire:component.homepage.latestpost lazy />
     </section>
 </x-layouts.guest>
