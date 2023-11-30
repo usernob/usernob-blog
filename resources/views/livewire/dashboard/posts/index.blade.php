@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use Illuminate\Pagination\Paginator;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Volt\Component;
@@ -11,14 +12,19 @@ new class () extends Component {
     #[Layout('components.layouts.admin')]
     #[Title('Posts')]
     public $search = '';
-    # TODO add filter based on date
-    public $search_start_date = '';
-    public $search_end_date = '';
+
+    public function searchPost(string $query): Paginator
+    {
+        if (isset($query) && $query != '') {
+            return Post::where('title', 'like', "%{$query}%")->simplePaginate(10);
+        }
+        return Post::orderBy('updated_at', 'desc')->simplePaginate(10);
+    }
 
     public function with()
     {
         return [
-            'posts' => Post::where('title', 'like', "%{$this->search}%")->simplePaginate(10),
+            'posts' => $this->searchPost($this->search),
         ];
     }
 }; ?>

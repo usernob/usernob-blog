@@ -72,7 +72,6 @@ new class () extends Component {
         return;
     }
 
-
     public function boot()
     {
         $this->post = Post::find($this->id);
@@ -101,9 +100,12 @@ new class () extends Component {
         }
 
         $path = "content/{$this->title}-" . date('Ymd-His') . '.md';
-        if (Storage::put($path, $this->content)) {
-            $data['content'] = $path;
-            Storage::delete($this->post->content);
+        // dd($this->content, $this->title);
+        if ($this->content) {
+            if (Storage::put($path, $this->content)) {
+                $data['content'] = $path;
+                Storage::delete($this->post->content);
+            }
         }
 
         $this->post->tags()->sync(array_keys($tags));
@@ -155,6 +157,9 @@ new class () extends Component {
 
     <section class="w-full flex flex-col gap-4 rounded-md shadow-lg bg-background2 p-4" x-data="metadata">
         <div>
+            @if($errors->any())
+            <span class="text-red-500">{{ $errors->first() }}</span>
+            @endif
             <label for="title">
                 <h4 class="mb-2">Title</h4>
             </label>
@@ -311,6 +316,7 @@ new class () extends Component {
                         .get(this.$refs.content.dataset.src)
                         .then((res) => {
                             this.$refs.content.value = res.data
+                            this.$refs.content.dispatchEvent(new Event("input"));
                             this.resizeTextArea();
                             return res;
                         })

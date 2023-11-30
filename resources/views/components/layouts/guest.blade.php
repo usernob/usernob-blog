@@ -19,8 +19,7 @@
             </div>
 
             <p class="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 dark:text-gray-400">
-                Semua hal didunia ini dimulai dari awal. Jangan takut mencoba, kalahkan rasa malasmu, gapai mimpimu, dan
-                kamu akan menangis bahagia pada akhirnya
+                usernob_blog adalah sebuah website blog seputar pemrograman dan juga membahas seputar GNU/linux
             </p>
 
             <ul class="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">

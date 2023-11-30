@@ -21,10 +21,10 @@ class HomeController extends Controller
         return view('page.post.show', compact('post'));
     }
 
-    public function getPostByTag(Request $request, string $tag): View
+    public function getPostByTag(string $tag): View
     {
-        $posts = Tag::where('name', '=', $tag)->first()->posts()->simplePaginate(6);
-        return view('page.tag.post', ['posts' => $posts, 'tagname' => $tag]);
+        $posts = Tag::where('name', '=', $tag)->first()->posts;
+        return view('page.tag.post', ['posts' => $posts, "tagname" => $tag]);
     }
 
     public function search(): View
