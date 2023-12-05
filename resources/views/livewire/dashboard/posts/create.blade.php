@@ -64,7 +64,7 @@ new class () extends Component {
 
     public function addNewTag()
     {
-        $this->validate(['tag' => 'required']);
+        $this->validate(['searchTag' => 'required']);
         Tag::firstOrCreate(['name' => $this->searchTag]);
         $this->searchTag = '';
         return;
@@ -120,15 +120,15 @@ new class () extends Component {
 
     <section class="w-full flex flex-col gap-4 rounded-md shadow-lg bg-background2 p-4" x-data="metadata">
         <div>
+            @if ($errors->any())
+                <span class="text-foreground bg-ancent px-4 text-xl py-2 w-full">{{ $errors->first() }}</span>
+            @endif
             <label for="title">
                 <h4 class="mb-2">Title</h4>
             </label>
             <input
                 class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent bg-background2 placeholder:text-ld text-lg"
                 type="text" name="title" id="title" wire:model="title">
-            @error('title')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
         </div>
         <div>
             <label for="description">
@@ -198,42 +198,10 @@ new class () extends Component {
             @enderror
         </div>
     </section>
-    <section class="mt-10" x-data="content">
-        <div class="flex sticky top-20">
-            <button type="button" class="w-full py-2 rounded-t-md bg-background"
-                :class="{ 'bg-background2': !preview }" @click="preview = false">
-                <h5>Edit</h5>
-            </button>
-            <button type="button" class="w-full py-2 rounded-t-md bg-background" :class="{ 'bg-background2': preview }"
-                @click="renderPreview">
-                <h5>Preview</h5>
-            </button>
-        </div>
-        <div class="rounded-md shadow-lg bg-background2 p-4">
 
-            <div class="w-full" x-show="!preview">
-                <textarea
-                    class="w-full rounded-md border-2 focus:ring-ancent focus:border-ancent bg-background2 placeholder:text-lg text-lg overflow-y-hidden"
-                    name="content" id="content" rows="17" x-ref="content" wire:model="content" @input="resizeTextArea"></textarea>
-            </div>
+    <textarea name="content" id="content" wire:model="content" hidden></textarea>
+    <livewire:component.dashboard.easymde/>
 
-            <div x-show="preview" class="w-full min-h-[50vh]">
-                <div
-                    class="prose md:prose-xl dark:prose-invert mx-auto w-full max-w-[80ch] px-6 prose-img:mx-auto prose-img:rounded-xl prose-img:shadow-lg">
-                    <div x-ref="previewContent">
-                        <div class="w-full grid grid-cols-5 gap-4 animate-pulse">
-                            <div class="h-6 bg-background rounded col-span-2"></div>
-                            <div class="h-6 bg-background rounded col-span-2"></div>
-                            <div class="h-6 bg-background rounded col-span-1"></div>
-                            <div class="h-6 bg-background rounded col-span-3"></div>
-                            <div class="h-6 bg-background rounded col-span-2"></div>
-                            <div class="h-6 bg-background rounded col-span-2"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <script>
         document.addEventListener("alpine:init", () => {
             Alpine.data("metadata", () => ({
@@ -266,19 +234,6 @@ new class () extends Component {
                 deleteTag(index) {
                     delete this.tags[index]
                     this.updateInput();
-                }
-            }))
-            Alpine.data("content", () => ({
-                preview: false,
-                async renderPreview(e) {
-                    this.preview = true;
-                    this.$refs.previewContent.innerHTML = await marked.parse(this.$refs.content
-                        .value);
-                },
-
-                resizeTextArea() {
-                    this.$refs.content.style.height = "auto";
-                    this.$refs.content.style.height = this.$refs.content.scrollHeight + "px";
                 }
             }))
         })

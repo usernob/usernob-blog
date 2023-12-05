@@ -6,6 +6,7 @@
 
 import axios from 'axios';
 import marked from './lib/markdown2thml.js';
+import EasyMDE from 'easymde';
 
 window.axios = axios;
 
@@ -13,6 +14,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.marked = marked;
 
+window.EasyMDE = EasyMDE;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

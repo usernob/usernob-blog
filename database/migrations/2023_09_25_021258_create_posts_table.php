@@ -17,7 +17,8 @@ return new class () extends Migration {
             $table->foreignId('user_id')->constrained();
             $table->string('content');
             $table->string('description');
-            $table->integer('view_count')->default(0);
+            $table->integer('thismonth_view_count')->default(0);
+            $table->integer('total_view_count')->default(0);
             $table->timestamps();
         });
     }

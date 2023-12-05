@@ -4,7 +4,7 @@
     <section class="container min-h-screen my-10">
         <div class="prose md:prose-lg dark:prose-invert mx-auto w-full max-w-[80ch] px-6">
 
-            <img width="100%" style="margin: auto" class="not-prose"
+            <img width="100%" style="margin: auto" class="not-prose rounded-lg"
                 src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/de30015f-dc5f-4ecf-a49b-ccd2b89776e4">
 
             <h2>About Me</h2>
@@ -46,7 +46,7 @@
             </div>
 
             <img
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=usernob&theme=transparent&hide_border=true&locale=id&layout=compact&count_private=false&card_width=700pxlangs_count=9">
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=usernob&theme=transparent&hide_border=true&layout=compact&count_private=false&langs_count=9">
         </div>
     </section>
 </x-layouts.guest>

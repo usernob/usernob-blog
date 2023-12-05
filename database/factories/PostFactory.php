@@ -21,7 +21,8 @@ class PostFactory extends Factory
             'thumbnail' => 'thumbnail/' . $this->faker->file('./public/template/thumbnail', './storage/app/public/thumbnail', false),
             'content' => 'content/' . $this->faker->file('./public/template/content', './storage/app/public/content', false),
             'description' => $this->faker->paragraph(),
-            'view_count' => $this->faker->numberBetween(0, 100),
+            'thismonth_view_count' => $this->faker->numberBetween(0, 100),
+            'total_view_count' => $this->faker->numberBetween(0, 500),
         ];
     }
 }

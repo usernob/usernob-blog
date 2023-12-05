@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function showPost(Request $request, string $by, string|int $param): View
     {
         $post = Post::where($by, '=', $param)->first();
-        $post->increment('view_count');
+        $post->increment('thismonth_view_count');
         return view('page.post.show', compact('post'));
     }
 
