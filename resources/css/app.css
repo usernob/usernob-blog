@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&display=swap');
 @import url('./font.css');
+@import url('./prose.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -62,9 +63,6 @@
     display: none !important;
 }
 
-.prose a {
-    @apply hover:text-ancent
-}
 
 .hljs {
     display: block;

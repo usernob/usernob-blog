@@ -8,6 +8,18 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
     ],
+    safelist: [
+        "hover:underline",
+        "absolute",
+        "top-0",
+        "-left-8",
+        "no-underline",
+        "hover:underline",
+        "hidden",
+        "group",
+        "group-hover:inline",
+        "hover:cursor-pointer",
+    ],
     theme: {
         extend: {
             fontFamily: {

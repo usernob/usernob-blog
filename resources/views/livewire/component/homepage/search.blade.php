@@ -50,7 +50,7 @@ new class () extends Component {
                     class="rounded-md object-cover object-center bg-placeholder aspect-video w-full md:w-1/4 group-hover:opacity-80 transition duration-300 ease-in-out"
                     loading="lazy">
                 <div class="flex-1 w-full md:w-3/4">
-                    <a href="{{ route('dashboard.posts.edit', ['id' => $post->id]) }}">
+                    <a href="{{ route('post.show', ['by' => 'id', 'param' => $post->id]) }}">
                         <h4 class="group-hover:text-ancent transition duration-300 ease-in-out">{{ $post->title }}</h4>
                     </a>
                     <p class="text-base text-foreground2">{{ $post->description }}</p>

@@ -1,0 +1,7 @@
+.custom-prose {
+    @apply prose md:prose-lg dark:prose-invert mx-auto
+            w-full max-w-[80ch] px-6 prose-img:mx-auto
+            prose-img:max-h-[30vh] md:prose-img:max-h-[50vh]
+            prose-img:rounded-xl prose-img:shadow-lg;
+}
+
