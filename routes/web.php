@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
     Volt::route('/dashboard/posts', "dashboard.posts.index")->name('dashboard.posts');
     Volt::route('/dashboard/posts/edit/{id}', "dashboard.posts.edit")->name('dashboard.posts.edit');
     Volt::route('/dashboard/posts/create', "dashboard.posts.create")->name('dashboard.posts.create');
-    Volt::route('/dashboard/profile', "dashboard.overview")->name('dashboard.profile');
+    Volt::route('/dashboard/profile', "dashboard.profile.index")->name('dashboard.profile');
+    Volt::route('/dashboard/profile/password', "dashboard.profile.password")->name('dashboard.profile.password');
 });
 
 Route::get('/tag/{tag}', [HomeController::class, 'getPostByTag'])->name('tag.post');
