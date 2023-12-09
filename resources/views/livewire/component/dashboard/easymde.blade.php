@@ -38,7 +38,17 @@ new class () extends Component {
                     }, 250)
                     return "Parsing..."
                 },
+                hideIcons: ["guide", "side-by-side", "fullscreen"],
                 placeholder: "Type here...",
+                spellChecker: false,
+                promptURLs: true,
+                uploadImage: true,
+                imageUploadEndpoint: "{{ route('attachment.upload') }}",
+                imagePathAbsolute: true,
+                imageCSRFToken: "{{ csrf_token() }}",
+                imageCSRFName: "_token",
+                imageCSRFHeader: true
+
             });
             easyMDE.value("");
             if (content.dataset.src !== "") {

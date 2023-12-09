@@ -70,5 +70,6 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('thumbnail') => storage_path('app/public/thumbnail'),
         public_path('content') => storage_path('app/public/content'),
+        public_path("attachment") => storage_path("app/public/attachment"),
     ],
 ];
